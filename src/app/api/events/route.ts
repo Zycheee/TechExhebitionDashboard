@@ -13,12 +13,19 @@ export async function GET(req: Request) {
     const priority = searchParams.get("priority");
     const search = searchParams.get("search");
     const status = searchParams.get("status");
+    const isAttendedParam = searchParams.get("isAttended");
 
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "25");
     const skip = (page - 1) * limit;
 
     const where: any = {};
+
+    if (isAttendedParam === "true") {
+      where.isAttended = true;
+    } else if (isAttendedParam === "false") {
+      where.isAttended = false;
+    }
 
     if (region && region !== "ALL") {
       where.region = region;

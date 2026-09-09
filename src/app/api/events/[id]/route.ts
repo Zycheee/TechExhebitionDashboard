@@ -95,6 +95,42 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const id = parseInt(params.id);
+    const body = await req.json();
+
+    const dataToUpdate: any = {};
+    if (typeof body.isAttended === "boolean") {
+      dataToUpdate.isAttended = body.isAttended;
+      dataToUpdate.attendedAt = body.isAttended ? new Date() : null;
+    }
+    if (body.status) {
+      dataToUpdate.status = body.status;
+    }
+
+    const updatedEvent = await db.event.update({
+      where: { id },
+      data: dataToUpdate,
+    });
+
+    return NextResponse.json({ event: updatedEvent });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: "Failed to update attendance status: " + error.message },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }

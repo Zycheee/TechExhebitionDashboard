@@ -41,6 +41,10 @@ model Event {
   keyNotes             String // Field 26
   sourceLinks          String // Field 27 (JSON string array)
 
+  // Attendance Tracking
+  isAttended  Boolean   @default(false)
+  attendedAt  DateTime?
+
   // Metadata
   status      String   @default("PUBLISHED") // DRAFT, PENDING_REVIEW, PUBLISHED, ARCHIVED
   source      String   @default("MANUAL") // MANUAL, SCRAPED, IMPORTED

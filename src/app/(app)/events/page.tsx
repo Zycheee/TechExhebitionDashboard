@@ -17,7 +17,24 @@ export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<any>(null);
   const { locale } = useLocaleStore();
+
+  const handleToggleAttended = async (id: number, currentStatus: boolean) => {
+    try {
+      const res = await fetch(`/api/events/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isAttended: !currentStatus }),
+      });
+      if (res.ok) {
+        toast.success(!currentStatus ? "Event marked as Attended!" : "Attendance status updated");
+        fetchEvents();
+      }
+    } catch {
+      toast.error("Error updating attendance");
+    }
+  };
 
   const [filters, setFilters] = useState({
     region: "ALL",
@@ -197,11 +214,11 @@ export default function EventsPage() {
           {viewMode === "card" ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {events.map((evt) => (
-                <EventCard key={evt.id} event={evt} />
+                <EventCard key={evt.id} event={evt} onToggleAttended={handleToggleAttended} />
               ))}
             </div>
           ) : (
-            <EventTable events={events} onDelete={handleDelete} />
+            <EventTable events={events} onDelete={handleDelete} onEdit={(evt) => setEditingEvent(evt)} />
           )}
 
           {/* Pagination Controls */}
@@ -229,7 +246,44 @@ export default function EventsPage() {
                 >
                   Next
                 </button>
-              </div>
+      {/* Edit Event Pop-up Modal */}
+      <ModalPortal isOpen={!!editingEvent} onClose={() => setEditingEvent(null)}>
+        <div className="bg-[#133020] text-white p-5 px-7 flex items-center justify-between shrink-0 shadow-sm border-b border-white/10">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#FFB347] text-[#133020] flex items-center justify-center font-bold shadow-xs">
+              <Plus className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-bold text-base text-white">
+                {locale === "en" ? "Edit Exhibition Record" : "编辑展会记录"}
+              </h3>
+              <p className="text-[10px] text-[#F5EEDB]/70 uppercase tracking-wider">
+                Record #{editingEvent?.eventNumber} · {editingEvent?.eventName}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setEditingEvent(null)}
+            className="p-2 rounded-xl bg-white/10 text-white/80 hover:text-white hover:bg-white/20 transform hover:rotate-90 transition duration-200"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="p-6 sm:p-8 bg-white max-h-[80vh] overflow-y-auto no-scrollbar">
+          {editingEvent && (
+            <EventForm
+              initialData={editingEvent}
+              isEditing
+              onSuccess={() => {
+                setEditingEvent(null);
+                fetchEvents();
+              }}
+            />
+          )}
+        </div>
+      </ModalPortal>
+    </div>
             </div>
           )}
         </div>

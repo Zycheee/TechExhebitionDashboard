@@ -36,7 +36,7 @@ export function ModalPortal({ isOpen, onClose, children }: ModalPortalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 w-screen h-screen z-[99999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto no-scrollbar"
+          className="fixed inset-0 top-0 left-0 right-0 bottom-0 w-full h-full min-h-screen z-[999999] bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto no-scrollbar"
           onClick={onClose}
         >
           <motion.div

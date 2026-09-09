@@ -30,6 +30,7 @@ import {
   Award,
   Star,
   Ticket,
+  CheckCircle2,
   X,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -176,8 +177,40 @@ export default function EventDetailPage() {
             </div>
 
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    const newAttended = !event.isAttended;
+                    const res = await fetch(`/api/events/${event.id}`, {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ isAttended: newAttended }),
+                    });
+                    if (res.ok) {
+                      setEvent({ ...event, isAttended: newAttended });
+                      toast.success(
+                        newAttended
+                          ? "Event marked as Attended!"
+                          : "Event attendance removed"
+                      );
+                    }
+                  } catch {
+                    toast.error("Failed to update attendance status");
+                  }
+                }}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-xs border ${
+                  event.isAttended
+                    ? "bg-[#046241] text-white border-[#046241]"
+                    : "bg-[#F5EEDB] text-[#133020] border-[#D8D2C8] hover:border-[#046241]"
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4 text-[#FFB347]" />
+                <span>{event.isAttended ? "Already Attended ✓" : "Mark as Attended"}</span>
+              </button>
+
               <PriorityIndicator priority={event.priorityLevel} />
-              <FitScoreBadge score={event.fitScore} />
+              <FitScoreBadge score={event.fitScore} size="xl" showLevel />
             </div>
           </div>
 

@@ -8,9 +8,10 @@ import { useSession } from "next-auth/react";
 interface EventTableProps {
   events: any[];
   onDelete?: (id: number) => void;
+  onEdit?: (event: any) => void;
 }
 
-export function EventTable({ events, onDelete }: EventTableProps) {
+export function EventTable({ events, onDelete, onEdit }: EventTableProps) {
   const { data: session } = useSession();
   const userRole = (session?.user as any)?.role || "INTERN";
 
@@ -112,13 +113,13 @@ export function EventTable({ events, onDelete }: EventTableProps) {
                       <Eye className="w-4 h-4" />
                     </Link>
                     {(userRole === "ADMIN" || userRole === "SUPERVISOR") && (
-                      <Link
-                        href={`/events/${evt.id}/edit`}
+                      <button
+                        onClick={() => onEdit ? onEdit(evt) : null}
                         title="Edit Event"
-                        className="p-1.5 text-emerald-950 dark:text-slate-200 hover:bg-black/10 dark:hover:bg-white/10 rounded transition"
+                        className="p-1.5 text-[#133020] hover:bg-[#133020]/10 rounded transition"
                       >
                         <Edit className="w-4 h-4" />
-                      </Link>
+                      </button>
                     )}
                     {userRole === "ADMIN" && onDelete && (
                       <button
