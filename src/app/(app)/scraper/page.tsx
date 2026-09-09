@@ -6,6 +6,7 @@ import { Bot, Play, Check, X, RefreshCw, Sparkles, Sliders, Calendar, ShieldChec
 import { toast } from "sonner";
 import { useLocaleStore } from "@/stores/locale-store";
 import EventScraperDashboard from "@/components/events/EventScraperDashboard";
+import { LifewoodDropdown } from "@/components/shared/lifewood-dropdown";
 
 export default function ScraperPage() {
   const [engineMode, setEngineMode] = useState<"apify_gemini" | "standard">("apify_gemini");
@@ -13,6 +14,18 @@ export default function ScraperPage() {
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { locale } = useLocaleStore();
+
+  const frequencyOptions = [
+    { value: "Daily", label: "Daily Execution" },
+    { value: "Weekly", label: "Weekly (Recommended)" },
+    { value: "Monthly", label: "Monthly" },
+  ];
+
+  const dayOptions = [
+    { value: "Monday", label: "Monday" },
+    { value: "Wednesday", label: "Wednesday" },
+    { value: "Friday", label: "Friday" },
+  ];
 
   const [config, setConfig] = useState({
     startDate: "2026-09-01",
@@ -250,15 +263,12 @@ export default function ScraperPage() {
             <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-1">
               Frequency
             </label>
-            <select
+            <LifewoodDropdown
               value={schedule.frequency}
-              onChange={(e) => setSchedule({ ...schedule, frequency: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg border border-[#D8D2C8] text-xs text-[#133020] bg-white"
-            >
-              <option value="Daily">Daily Execution</option>
-              <option value="Weekly">Weekly (Recommended)</option>
-              <option value="Monthly">Monthly</option>
-            </select>
+              onChange={(val) => setSchedule({ ...schedule, frequency: val })}
+              options={frequencyOptions}
+              aria-label="Frequency"
+            />
           </div>
 
           <div>
@@ -266,15 +276,12 @@ export default function ScraperPage() {
               Execution Day & Time
             </label>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <select
+              <LifewoodDropdown
                 value={schedule.day}
-                onChange={(e) => setSchedule({ ...schedule, day: e.target.value })}
-                className="px-3 py-2 rounded-lg border border-[#D8D2C8] bg-white text-[#133020]"
-              >
-                <option value="Monday">Monday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Friday">Friday</option>
-              </select>
+                onChange={(val) => setSchedule({ ...schedule, day: val })}
+                options={dayOptions}
+                aria-label="Execution Day"
+              />
               <input
                 type="text"
                 value={schedule.time}

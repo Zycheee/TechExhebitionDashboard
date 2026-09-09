@@ -1,6 +1,7 @@
 import { REGIONS, BUSINESS_LINES, PRIORITIES } from "@/lib/constants/business-lines";
 import { Search, X, Filter } from "lucide-react";
 import { useLocaleStore } from "@/stores/locale-store";
+import { LifewoodDropdown } from "@/components/shared/lifewood-dropdown";
 
 interface EventFiltersProps {
   filters: {
@@ -24,6 +25,31 @@ export function EventFilters({ filters, onChange, onClear }: EventFiltersProps) 
     filters.priority !== "ALL" ||
     filters.search !== "";
 
+  const regionOptions = [
+    { value: "ALL", label: locale === "en" ? "All regions" : "所有大区" },
+    ...REGIONS.map((r) => ({ value: r, label: r })),
+  ];
+
+  const businessLineOptions = [
+    { value: "ALL", label: locale === "en" ? "All business lines" : "所有业务线" },
+    ...BUSINESS_LINES.map((b) => ({ value: b.name, label: b.name })),
+  ];
+
+  const fitScoreOptions = [
+    { value: "ALL", label: locale === "en" ? "All fit scores" : "所有适配度" },
+    { value: "5", label: `Fit 5 (${locale === "en" ? "Direct fit" : "直接匹配"})` },
+    { value: "4", label: `Fit 4 (${locale === "en" ? "Strong fit" : "高度匹配"})` },
+    { value: "3", label: `Fit 3 (${locale === "en" ? "Moderate fit" : "中度匹配"})` },
+  ];
+
+  const priorityOptions = [
+    { value: "ALL", label: locale === "en" ? "All priorities" : "所有优先级" },
+    ...PRIORITIES.map((p) => ({
+      value: p.name,
+      label: `${p.name} ${locale === "en" ? "priority" : "优先级"}`,
+    })),
+  ];
+
   return (
     <div className="bg-[#F5EEDB] border-[1.5px] border-[#D8D2C8] rounded-[12px] p-4 sm:px-6 mb-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] font-manrope">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -35,74 +61,44 @@ export function EventFilters({ filters, onChange, onClear }: EventFiltersProps) 
           </div>
 
           {/* Region */}
-          <select
+          <LifewoodDropdown
+            variant="pill"
             value={filters.region}
-            onChange={(e) => onChange("region", e.target.value)}
-            className={`px-3.5 py-1.5 rounded-full border-[1.5px] text-[12.5px] font-medium transition cursor-pointer focus:outline-none ${
-              filters.region !== "ALL"
-                ? "bg-[#133020] border-[#133020] text-white"
-                : "bg-white border-[#D8D2C8] text-[#666666] hover:border-[#133020]/40"
-            }`}
-          >
-            <option value="ALL">{locale === "en" ? "All regions" : "所有大区"}</option>
-            {REGIONS.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
+            onChange={(val) => onChange("region", val)}
+            options={regionOptions}
+            isActivePill={filters.region !== "ALL"}
+            aria-label="Filter by region"
+          />
 
           {/* Business Line */}
-          <select
+          <LifewoodDropdown
+            variant="pill"
             value={filters.businessLine}
-            onChange={(e) => onChange("businessLine", e.target.value)}
-            className={`px-3.5 py-1.5 rounded-full border-[1.5px] text-[12.5px] font-medium transition cursor-pointer focus:outline-none ${
-              filters.businessLine !== "ALL"
-                ? "bg-[#133020] border-[#133020] text-white"
-                : "bg-white border-[#D8D2C8] text-[#666666] hover:border-[#133020]/40"
-            }`}
-          >
-            <option value="ALL">{locale === "en" ? "All business lines" : "所有业务线"}</option>
-            {BUSINESS_LINES.map((b) => (
-              <option key={b.id} value={b.name}>
-                {b.name}
-              </option>
-            ))}
-          </select>
+            onChange={(val) => onChange("businessLine", val)}
+            options={businessLineOptions}
+            isActivePill={filters.businessLine !== "ALL"}
+            aria-label="Filter by business line"
+          />
 
           {/* Fit Score */}
-          <select
+          <LifewoodDropdown
+            variant="pill"
             value={filters.fitScore}
-            onChange={(e) => onChange("fitScore", e.target.value)}
-            className={`px-3.5 py-1.5 rounded-full border-[1.5px] text-[12.5px] font-medium transition cursor-pointer focus:outline-none ${
-              filters.fitScore !== "ALL"
-                ? "bg-[#133020] border-[#133020] text-white"
-                : "bg-white border-[#D8D2C8] text-[#666666] hover:border-[#133020]/40"
-            }`}
-          >
-            <option value="ALL">{locale === "en" ? "All fit scores" : "所有适配度"}</option>
-            <option value="5">Fit 5 ({locale === "en" ? "Direct fit" : "直接匹配"})</option>
-            <option value="4">Fit 4 ({locale === "en" ? "Strong fit" : "高度匹配"})</option>
-            <option value="3">Fit 3 ({locale === "en" ? "Moderate fit" : "中度匹配"})</option>
-          </select>
+            onChange={(val) => onChange("fitScore", val)}
+            options={fitScoreOptions}
+            isActivePill={filters.fitScore !== "ALL"}
+            aria-label="Filter by fit score"
+          />
 
           {/* Priority */}
-          <select
+          <LifewoodDropdown
+            variant="pill"
             value={filters.priority}
-            onChange={(e) => onChange("priority", e.target.value)}
-            className={`px-3.5 py-1.5 rounded-full border-[1.5px] text-[12.5px] font-medium transition cursor-pointer focus:outline-none ${
-              filters.priority !== "ALL"
-                ? "bg-[#133020] border-[#133020] text-white"
-                : "bg-white border-[#D8D2C8] text-[#666666] hover:border-[#133020]/40"
-            }`}
-          >
-            <option value="ALL">{locale === "en" ? "All priorities" : "所有优先级"}</option>
-            {PRIORITIES.map((p) => (
-              <option key={p.name} value={p.name}>
-                {p.name} {locale === "en" ? "priority" : "优先级"}
-              </option>
-            ))}
-          </select>
+            onChange={(val) => onChange("priority", val)}
+            options={priorityOptions}
+            isActivePill={filters.priority !== "ALL"}
+            aria-label="Filter by priority"
+          />
 
           {isFiltered && (
             <button

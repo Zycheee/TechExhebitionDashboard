@@ -5,12 +5,29 @@ import { REGIONS } from "@/lib/constants/business-lines";
 import { FileSpreadsheet, Download, Eye, FileText, Sparkles, CheckCircle, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { useLocaleStore } from "@/stores/locale-store";
+import { LifewoodDropdown } from "@/components/shared/lifewood-dropdown";
 
 export default function ReportsPage() {
   const { locale } = useLocaleStore();
   const [reportType, setReportType] = useState("regional");
   const [region, setRegion] = useState("Asia");
   const [format, setFormat] = useState<"html" | "csv">("html");
+
+  const reportTypeOptions = [
+    { value: "regional", label: "Regional Summary Report" },
+    { value: "businessLine", label: "Business Line Summary Report" },
+    { value: "full", label: "Full Database Export" },
+  ];
+
+  const regionOptions = [
+    { value: "ALL", label: "All Regions (Global Summary)" },
+    ...REGIONS.map((r) => ({ value: r, label: r })),
+  ];
+
+  const formatOptions = [
+    { value: "html", label: "Lifewood Branded HTML (HK Report Style)" },
+    { value: "csv", label: "Raw CSV Spreadsheet Data" },
+  ];
 
   const [generatedHtml, setGeneratedHtml] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -91,47 +108,36 @@ export default function ReportsPage() {
             <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-2">
               Report Type
             </label>
-            <select
+            <LifewoodDropdown
               value={reportType}
-              onChange={(e) => setReportType(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-[#D8D2C8] text-xs text-[#133020] bg-white"
-            >
-              <option value="regional">Regional Summary Report</option>
-              <option value="businessLine">Business Line Summary Report</option>
-              <option value="full">Full Database Export</option>
-            </select>
+              onChange={(val) => setReportType(val)}
+              options={reportTypeOptions}
+              aria-label="Report Type"
+            />
           </div>
 
           <div>
             <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-2">
               Region Selection
             </label>
-            <select
+            <LifewoodDropdown
               value={region}
-              onChange={(e) => setRegion(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-[#D8D2C8] text-xs text-[#133020] bg-white"
-            >
-              <option value="ALL">All Regions (Global Summary)</option>
-              {REGIONS.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setRegion(val)}
+              options={regionOptions}
+              aria-label="Region Selection"
+            />
           </div>
 
           <div>
             <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-2">
               Export Format
             </label>
-            <select
+            <LifewoodDropdown
               value={format}
-              onChange={(e) => setFormat(e.target.value as any)}
-              className="w-full px-3 py-2 rounded-lg border border-[#D8D2C8] text-xs text-[#133020] bg-white font-semibold"
-            >
-              <option value="html">Lifewood Branded HTML (HK Report Style)</option>
-              <option value="csv">Raw CSV Spreadsheet Data</option>
-            </select>
+              onChange={(val) => setFormat(val as any)}
+              options={formatOptions}
+              aria-label="Export Format"
+            />
           </div>
         </div>
 

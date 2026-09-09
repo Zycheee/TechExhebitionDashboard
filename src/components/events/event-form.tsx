@@ -7,6 +7,7 @@ import { DuplicateWarning } from "./duplicate-warning";
 import { Plus, Trash2, CheckCircle2, AlertCircle, Sparkles, Save, Info, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { LifewoodDropdown } from "@/components/shared/lifewood-dropdown";
 
 interface EventFormProps {
   initialData?: any;
@@ -294,17 +295,12 @@ export function EventForm({ initialData, isEditing = false, onSuccess, onCancel 
             <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-1">
               Region *
             </label>
-            <select
+            <LifewoodDropdown
               value={formData.region}
-              onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-              className="w-full px-3 py-2 rounded-lg border border-[#D8D2C8] bg-white text-xs text-[#133020] focus:border-[#046241]"
-            >
-              {REGIONS.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setFormData({ ...formData, region: val })}
+              options={REGIONS.map((r) => ({ value: r, label: r }))}
+              aria-label="Select Region"
+            />
           </div>
 
           <div>
@@ -566,17 +562,12 @@ export function EventForm({ initialData, isEditing = false, onSuccess, onCancel 
               <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-1">
                 Participation Recommendation
               </label>
-              <select
+              <LifewoodDropdown
                 value={formData.participationRec}
-                onChange={(e) => setFormData({ ...formData, participationRec: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg border border-[#D8D2C8] bg-white text-xs text-[#133020] focus:border-[#046241]"
-              >
-                {PARTICIPATION_OPTIONS.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
+                onChange={(val) => setFormData({ ...formData, participationRec: val })}
+                options={PARTICIPATION_OPTIONS.map((opt) => ({ value: opt, label: opt }))}
+                aria-label="Select Participation Recommendation"
+              />
             </div>
 
             <div>

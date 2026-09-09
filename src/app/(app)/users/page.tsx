@@ -6,11 +6,24 @@ import { ModalPortal } from "@/components/shared/modal-portal";
 import { Users, UserPlus, Shield, Trash2, Edit, Loader2, Check, X, Key } from "lucide-react";
 import { toast } from "sonner";
 import { useLocaleStore } from "@/stores/locale-store";
+import { LifewoodDropdown } from "@/components/shared/lifewood-dropdown";
 
 export default function UsersPage() {
   const { data: session } = useSession();
   const userRole = (session?.user as any)?.role || "INTERN";
   const { locale } = useLocaleStore();
+
+  const roleOptionsTable = [
+    { value: "ADMIN", label: "ADMIN" },
+    { value: "SUPERVISOR", label: "SUPERVISOR" },
+    { value: "INTERN", label: "INTERN" },
+  ];
+
+  const roleOptionsModal = [
+    { value: "INTERN", label: "INTERN (Submit & View Only)" },
+    { value: "SUPERVISOR", label: "SUPERVISOR (Approve & Manage)" },
+    { value: "ADMIN", label: "ADMIN (Full Control)" },
+  ];
 
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -219,15 +232,13 @@ export default function UsersPage() {
                   <td className="p-3.5 text-[#666666] font-medium">{u.email}</td>
                   <td className="p-3.5">
                     {editingUser?.id === u.id ? (
-                      <select
+                      <LifewoodDropdown
+                        variant="compact"
                         value={editingUser.role}
-                        onChange={(e) => setEditingUser({ ...editingUser, role: e.target.value })}
-                        className="px-2 py-1 border border-[#D8D2C8] rounded text-xs text-[#133020] bg-white font-bold"
-                      >
-                        <option value="ADMIN">ADMIN</option>
-                        <option value="SUPERVISOR">SUPERVISOR</option>
-                        <option value="INTERN">INTERN</option>
-                      </select>
+                        onChange={(val) => setEditingUser({ ...editingUser, role: val })}
+                        options={roleOptionsTable}
+                        aria-label="Edit User Role"
+                      />
                     ) : (
                       <span className={`inline-block px-2.5 py-0.5 rounded text-[10px] uppercase ${getRoleBadgeStyle(u.role)}`}>
                         {u.role}
@@ -363,15 +374,12 @@ export default function UsersPage() {
               <label className="block font-bold text-[#133020] uppercase tracking-wider mb-1">
                 System Role
               </label>
-              <select
+              <LifewoodDropdown
                 value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full px-3 py-2 border border-[#D8D2C8] rounded-lg text-xs bg-white font-semibold"
-              >
-                <option value="INTERN">INTERN (Submit & View Only)</option>
-                <option value="SUPERVISOR">SUPERVISOR (Approve & Manage)</option>
-                <option value="ADMIN">ADMIN (Full Control)</option>
-              </select>
+                onChange={(val) => setFormData({ ...formData, role: val })}
+                options={roleOptionsModal}
+                aria-label="System Role"
+              />
             </div>
 
             <div className="flex justify-end gap-2 pt-3">

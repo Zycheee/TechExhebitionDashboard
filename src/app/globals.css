@@ -69,3 +69,134 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ==========================================================================
+   Lifewood Unified Dropdown (Select) UI System
+   ========================================================================== */
+
+@layer components {
+  /* Standard Form, Card & Modal Dropdown */
+  .lifewood-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-size: 0.75rem; /* text-xs: 12px */
+    font-weight: 600;
+    line-height: 1.25rem;
+    color: #133020;
+    background-color: #FFFFFF;
+    border: 1px solid #D8D2C8;
+    border-radius: 0.5rem; /* rounded-lg: 8px */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 2.25rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23133020' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .lifewood-select:hover:not(:disabled) {
+    border-color: rgba(4, 98, 65, 0.6);
+    background-color: #FAFAF8;
+  }
+
+  .lifewood-select:focus {
+    outline: none;
+    border-color: #046241;
+    box-shadow: 0 0 0 2px rgba(4, 98, 65, 0.18);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23046241' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  .lifewood-select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #F5EEDB;
+    border-color: #D8D2C8;
+    color: #999999;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  /* Compact Variant for Table Cells & Inline Controls */
+  .lifewood-select-sm {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.6rem;
+    padding-right: 1.85rem;
+    font-size: 0.75rem;
+    border-radius: 0.375rem; /* rounded-md: 6px */
+    background-position: right 0.5rem center;
+    background-size: 0.875rem 0.875rem;
+  }
+
+  /* Filter Pill Chip Variant for Catalog Filtering */
+  .lifewood-select-pill {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-size: 0.78125rem; /* 12.5px */
+    font-weight: 500;
+    line-height: 1.25rem;
+    color: #555555;
+    background-color: #FFFFFF;
+    border: 1.5px solid #D8D2C8;
+    border-radius: 9999px;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+    padding-left: 0.875rem;
+    padding-right: 2.125rem;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.875rem 0.875rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+
+  .lifewood-select-pill:hover:not(:disabled) {
+    border-color: rgba(19, 48, 32, 0.4);
+    color: #133020;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23133020' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  .lifewood-select-pill:focus {
+    outline: none;
+    border-color: #046241;
+    box-shadow: 0 0 0 2px rgba(4, 98, 65, 0.18);
+  }
+
+  /* Active Pill Filter (Selected Non-Default Criteria) */
+  .lifewood-select-pill-active {
+    background-color: #133020 !important;
+    border-color: #133020 !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFB347' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  }
+
+  .lifewood-select-pill-active:hover:not(:disabled) {
+    background-color: #046241 !important;
+    border-color: #046241 !important;
+  }
+
+  /* Pop-out options readability */
+  .lifewood-select option,
+  .lifewood-select-pill option {
+    background-color: #FFFFFF;
+    color: #133020;
+    font-weight: 500;
+    padding: 4px 8px;
+  }
+
+  /* Universal fallback: ensure any bare select inherits the Lifewood style */
+  select:not(.lifewood-select-pill) {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  }
+}
