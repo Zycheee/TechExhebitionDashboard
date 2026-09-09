@@ -78,21 +78,17 @@ export default function ReportsPage() {
               {locale === "en" ? "Executive Report Generator" : "执行报告生成器"}
             </h2>
           </div>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             Export Lifewood-branded HK report HTML documents or CSV datasets for executive presentation
           </p>
         </div>
       </div>
 
       {/* Config Form */}
-      <div className="bg-white p-6 rounded-xl border border-[#D8D2C8] shadow-xs space-y-5">
-        <h3 className="text-sm font-bold text-[#133020] border-b border-[#D8D2C8] pb-2">
-          Report Parameters
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="bg-white p-10 rounded-xl border border-[#D8D2C8] shadow-xs space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div>
-            <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-2">
               Report Type
             </label>
             <select
@@ -107,7 +103,7 @@ export default function ReportsPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-2">
               Region Selection
             </label>
             <select
@@ -125,7 +121,7 @@ export default function ReportsPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[#133020] uppercase tracking-wider mb-2">
               Export Format
             </label>
             <select

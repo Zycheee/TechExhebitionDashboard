@@ -110,28 +110,11 @@ export default function ScraperPage() {
               {locale === "en" ? "AI Event Scraper Engine" : "AI 智能抓取引擎"}
             </h2>
           </div>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             Automated crawler parsing official organizer sites, convention centers & AI conference calendars
           </p>
         </div>
 
-        <button
-          onClick={handleRunScraper}
-          disabled={running}
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#FFB347] hover:bg-[#FFC370] text-[#133020] font-bold text-xs rounded-lg transition shadow-md disabled:opacity-50"
-        >
-          {running ? (
-            <>
-              <RefreshCw className="w-4 h-4 animate-spin text-[#133020]" />
-              <span>Crawling Target Sources...</span>
-            </>
-          ) : (
-            <>
-              <Play className="w-4 h-4 fill-current" />
-              <span>Run Scraper Now</span>
-            </>
-          )}
-        </button>
       </div>
 
       {/* Mode Switcher Tabs */}

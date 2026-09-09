@@ -96,7 +96,7 @@ export default function DashboardPage() {
           <h2 className="text-[28px] font-semibold text-[#133020] tracking-tight leading-tight">
             {locale === "en" ? "Lifewood intelligence overview" : "Lifewood 展会情报总览"}
           </h2>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             {locale === "en"
               ? "Real-time exhibition pipeline tracking, strategic alignment, and coverage gap intelligence"
               : "实时展会追踪、战略适配评估与覆盖空缺分析"}
@@ -117,7 +117,7 @@ export default function DashboardPage() {
             className="flex items-center gap-1.5 px-4 py-2 bg-[#FFB347] hover:bg-[#FFC370] text-[#133020] font-medium text-xs rounded-[8px] transition-all duration-180 shadow-2xs"
           >
             <Plus className="w-4 h-4" />
-            <span>{locale === "en" ? "+ Add event" : "+ 添加展会"}</span>
+            <span>{locale === "en" ? "Add event" : "+ 添加展会"}</span>
           </Link>
         </div>
       </div>

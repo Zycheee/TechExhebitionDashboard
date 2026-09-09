@@ -114,7 +114,7 @@ export default function EventsPage() {
           <h2 className="text-[28px] font-semibold text-[#133020] tracking-tight leading-tight">
             {locale === "en" ? "Exhibition records" : "展会记录库"}
           </h2>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             {locale === "en"
               ? `Showing ${pagination.totalCount} strategic tech exhibition records (fit score 3+)`
               : `显示 ${pagination.totalCount} 条战略科技展会记录（适配分 3+）`}
@@ -153,7 +153,7 @@ export default function EventsPage() {
             className="flex items-center gap-1.5 px-4 py-2 bg-[#FFB347] hover:bg-[#FFC370] text-[#133020] font-medium text-xs rounded-[8px] transition-all duration-180 shadow-2xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>{locale === "en" ? "+ Add event" : "+ 添加展会"}</span>
+            <span>{locale === "en" ? "Add event" : "+ 添加展会"}</span>
           </button>
         </div>
       </div>

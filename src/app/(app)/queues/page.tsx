@@ -71,7 +71,7 @@ export default function QueuesPage() {
               {locale === "en" ? "Review & Approval Queues" : "审核与更正队列"}
             </h2>
           </div>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             Supervisor & Admin governance workflow for fit score rulings and data corrections
           </p>
         </div>

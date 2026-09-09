@@ -74,7 +74,7 @@ export default function SettingsPage() {
               {locale === "en" ? "System Configuration & Account Settings" : "系统配置与账户设置"}
             </h2>
           </div>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             {locale === "en"
               ? "Manage administrator profiles, RBAC governance, and credential security"
               : "管理管理员档案、权限控制与系统凭证安全"}

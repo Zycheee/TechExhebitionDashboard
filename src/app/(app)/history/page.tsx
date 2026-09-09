@@ -66,7 +66,7 @@ export default function HistoryPage() {
               {locale === "en" ? "Governance & Attendance History" : "审核与参展历史记录"}
             </h2>
           </div>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             Historical audit log for supervisor decisions (30-day auto-archive) and permanent attended exhibition records
           </p>
         </div>

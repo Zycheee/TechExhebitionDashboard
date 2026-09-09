@@ -169,7 +169,7 @@ export default function UsersPage() {
               {locale === "en" ? "User Management & RBAC Governance" : "用户管理与权限控制"}
             </h2>
           </div>
-          <p className="text-xs text-[#666666] mt-0.5">
+          <p className="text-xs text-[#333333] mt-0.5">
             Administer system accounts, assign roles (Admin, Supervisor, Intern), and control platform capabilities
           </p>
         </div>
